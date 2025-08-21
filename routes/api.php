@@ -5,6 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SupplierController;
+
+Route::apiResource('suppliers', SupplierController::class);
+Route::get('suppliers', [SupplierController::class, 'index']);
+Route::apiResource('suppliers', SupplierController::class);
+
+Route::get('products', [ProductController::class, 'index']);
+Route::post('products', [ProductController::class, 'store']);
+Route::put('products/{id}', [ProductController::class, 'update']);
+Route::delete('products/{id}', [ProductController::class, 'destroy']);
+
+
+Route::get('products/{id}', [ProductController::class, 'show'])
+     ->where('id', '[0-9]+');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +34,9 @@ use App\Http\Controllers\UserController;
 // 1) Public registration (no auth)
 Route::post('users', [UserController::class, 'store'])->name('users.store');
 Route::get('ping', fn() => response()->json(['pong' => true]));
+
+
+Route::delete('users/{user}', [UserController::class, 'destroy']);
 
 // 2) Protected CRUD (index, show, update, destroy)
 Route::middleware('auth:sanctum')->group(function () {

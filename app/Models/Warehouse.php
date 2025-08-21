@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Supplier extends Model
+class Warehouse extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,9 +17,7 @@ class Supplier extends Model
      */
     protected $fillable = [
         'name',
-        'contact_email',
-        'phone',
-        'address',
+        'location',
     ];
 
     /**
@@ -32,4 +30,27 @@ class Supplier extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    /**
+     * Get all inventory records for this warehouse.
+     */
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    /**
+     * Get all products stored in this warehouse.
+     */
+    public function products()
+    {
+        return $this->belongsToMany(
+            Product::class,
+            'inventory',
+            'warehouse_id',
+            'product_id'
+        )
+        ->withPivot('quantity')
+        ->withTimestamps();
+    }
 }

@@ -42,6 +42,7 @@ class AuthController extends Controller
         ], Response::HTTP_CREATED);
     }
 
+
     /**
      * Authenticate user credentials and return a token.
      */
