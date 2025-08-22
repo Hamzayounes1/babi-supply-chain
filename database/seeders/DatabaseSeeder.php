@@ -7,18 +7,18 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Warehouse;
+use Database\Seeders\WarehouseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
+    public function run()
+{
+    // Other seeders if any...
+    $this->call(WarehouseSeeder::class);
+}
     /**
      * Seed the application's database.
      */
-
-    public function run()
-    {
-        Supplier::factory()
-            ->count(10)
-            ->create();
-    }
 }
 

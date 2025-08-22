@@ -7,6 +7,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\InventoryController;
+
+
+
+Route::get('inventories', [InventoryController::class, 'index']);
+Route::post('inventories', [InventoryController::class, 'store']);
+
 
 Route::apiResource('suppliers', SupplierController::class);
 Route::get('suppliers', [SupplierController::class, 'index']);
